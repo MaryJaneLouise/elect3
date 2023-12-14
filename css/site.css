@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans');
+.btn-margin {
+    margin-right: 4 px;
+}
+
+html {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 16px;
+    }
+}
+
+@media print {
+    /* Hide the default header and footer */
+    @page {
+    !important;
+        margin: 0;
+        size: 8.5in 13in;
+    }
+
+    body {
+    !important;
+        margin: 0;
+    }
+
+    /* Hide the button section */
+    #buttons {
+        display: none;
+    }
+}
+
+.btn-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.btn-column a {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn-column a i {
+    margin-right: 10px;
+}
+
+.button-container2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.button-container a {
+    margin-right: 10px;
+}
+
+.custom-container-print  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-details {
+
+}
+
+.org-details {
+
+}
+
+.logo {
+    width: 8%;
+    height: 8%;
+    margin-right: 20px;
+}
+
+.text-container {
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.btn-primary {
+    border-radius: 10px;
+    background-color: #275382;
+    border: 1px solid #275382;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #1c436b;
+    border-color: #1c436b;
+}
+
+.btn-outline-primary {
+    border-radius: 10px;
+    border: 1px solid #275382;
+    color: #275382;
+}
+
+.btn-outline-primary:hover {
+    background-color: #275382;
+    border-color: #275382;
+    color: #fff;
+}
+
+.btn-secondary,
+.btn-outline-secondary,
+.btn-success,
+.btn-outline-success,
+.btn-danger,
+.btn-outline-danger{
+    border-radius: 10px;
+}
+
+.nav-link {
+    color: #275382;
+}
+
+.nav-link:hover {
+    /* Darker shade of the original color */
+    background-color: #1c3c59;
+    cursor: pointer;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white,
+    0 0 0 0.25rem #275382;
+}
+
+.nav-collapse .li {
+    list-style-type: none;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-body {
+    overflow: hidden;
+}
+
+textarea {
+    resize: none;
+}
+
+.hover-nav-item {
+    transition: background-color 0.3s;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    border-radius: 10px;
+}
+
+.hover-table-row {
+    transition: background-color 0.3s;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    border-radius: 10px;
+}
+
+.hover-table-row:hover {
+    color: white;
+    background-color: #275382;
+    border-radius: 10px;
+}
+
+.hover-item {
+    transition: background-color 0.3s;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    border-radius: 10px;
+}
+
+.hover-item:hover {
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
+
+/* Customize the radio button */
+.btn-check {
+    /* Hide the default radio button */
+    display: none;
+}
+
+/* Style the custom radio button */
+.btn-custom-radio {
+    border-radius: 10px;
+    background-color: transparent; /* Set the background color for unselected */
+    border: 1px solid #1c3c59; /* Set the border color for unselected */
+}
+
+/* Style the custom radio button when checked */
+.btn-check:checked + .btn-custom-radio {
+    background-color: #1c3c59; /* Set the background color when checked */
+    border-color: #1c3c59; /* Set the border color when checked */
+}
+
+.full-width-container {
+    width: 100vw;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.month_default_event_continueright, .month_default_event_inner {
+
+}
+
+.month-default-main {
+    border-radius: 20px;
+}
+
+.time {
+    width: 100%;
+    text-align: center;
+}
+
+
+.validation-summary-errors ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-item.active {
+    background-color: #000000;
+    font-weight: bold;
+}
+
+
+.clickable-nav {
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    background-color: transparent;
+}
+
+.clickable-nav:hover {
+    border-radius: 10px;
+    color: white;
+    background-color: #1c3c59;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clickable-row:hover {
+    background-color: #1c3c59;
+}
+
+.clickable-row td {
+    border: none;
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+}
+
+.dropdown-item:hover {
+    color: white;
+    background-color: #1c3c59;
+    align-items: center;
+}
+
+.rounded-rectangle {
+    border-radius: 20px;
+    background: #ffffff;
+    padding: 40px;
+}
+
+.modal-content {
+    border-radius: 20px;
+    border: transparent;
+}
+
+.profile-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.user-container {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.show-request-container {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+td, th {
+    text-align: center;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.vertical-line::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -1px;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px; /* Adjust height as needed */
+    background-color: #000; /* Adjust color as needed */
+}
