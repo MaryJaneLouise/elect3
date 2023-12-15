@@ -3,7 +3,8 @@
 This project was made in PHPStorm IDE and showcases basic CRUD operations for manipulating the 
 data in the MySQL database. You can get the sample database by going [here](database/studentrecord_db.sql) and download it to your computer.
 
-If you want to access the specific tasks, please go [here](others/TASKS.md).
+If you want to access the specific tasks, please go [here](others/TASKS.md). You can also watch the demonstration
+by downloading the file [here](screenshots/video/ELECT3_Recording.mkv).
 
 ## Sample Screenshots
 ![Whole website screenshot][whole-website]

@@ -1,8 +1,8 @@
 # About the Student Database
 This was made by CpE 4 students (Jericho V. Diaz & Marc Brian C. Nuguid) for their final requirement. 
 
-If you want to
-go back to README.md, please go [here](../README.md).
+If you want to go back to README.md, please go [here](../README.md). You can also watch the demonstration
+by downloading the file [here](screenshots/video/ELECT3_Recording.mkv).
 
 
 ## Screenshots with tasks
