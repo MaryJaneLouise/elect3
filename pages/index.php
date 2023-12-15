@@ -16,9 +16,9 @@ function searchStudents($search) {
     foreach ($results as $result) {
         echo '<div class="hover-item">';
         echo '<div style="display: flex; align-items: center">';
-        echo '<div class="profile-icon" style="margin-right: 10px; margin-left: 10px">';
-        echo substr($result->getFirstName(), 0, 1);
-        echo '</div>';
+        echo '<div class="profile-icon" style="margin-right: 10px; margin-left: 10px">
+               '. substr($result->getFirstName(), 0, 1) .'
+               </div>';
         echo '<div class="user-details" style="font-size: medium; horiz-align: center">';
         echo $result->getFirstName() . ' ' . $result->getLastName();
         echo '<div style="font-size: small">';
@@ -27,7 +27,7 @@ function searchStudents($search) {
         echo 'Final Grade: ' . $result->getFinalGrade();
         echo '</div></div></div>';
         echo '<div style="margin-left: auto; margin-right: 10px; justify-content: end">';
-        echo '<a class="btn btn-outline-secondary btn-margin" data-bs-toggle="modal" data-bs-target="#updateStudentModal"
+        echo '<a class="btn btn-outline-secondary btn-margin" data-bs-toggle="modal" data-bs-target="#updateStudentModal" style="margin-right: 4px"
                     data-student-id="' . $result->getStudentId() . '"
                     data-last-name="' . $result->getLastName() . '"
                     data-first-name="' . $result->getFirstName() . '"
@@ -43,7 +43,7 @@ function searchStudents($search) {
                     data-last-name="' . $result->getLastName() . '">
                 Delete
             </a>';
-        echo '</div></div>';
+        echo '</div></div></div>';
     }
 
     return ob_get_clean();
@@ -55,7 +55,7 @@ if (isset($_POST['searchStudent'])) {
 }
 
 if (isset($_POST['ClearSearch'])) {
-    echo "<meta http-equiv='refresh' content='0'>";
+    $results = $studentController->getStudents();
 }
 
 if(isset($_POST['Submit'])){
@@ -94,6 +94,59 @@ if(isset($_POST['Delete'])){
         echo "<meta http-equiv='refresh' content='0'>";
     }
 }
+
+if(isset($_POST['SortFirstName'])){
+    $results = $studentController->getStudentsAscendingByName();
+}
+
+if(isset($_POST['SortFinalGrade'])){
+    $results = $studentController->getStudentsDescendingByFinalGrade();
+}
+
+if(isset($_POST['CustomSearch'])){
+    $gradeType = $_POST['grade-type'];
+    $grade = $_POST['grade'];
+    $condition = $_POST['condition'];
+
+    switch ($gradeType) {
+        case 'prelim':
+            if ($condition == 'equal') {
+                $results = $studentController->getStudentsByEqualPrelim($grade);
+            } elseif ($condition == 'greater') {
+                $results = $studentController->getStudentsByEqualOrGreaterThanPrelim($grade);
+            } elseif ($condition == 'less') {
+                $results = $studentController->getStudentsByEqualOrLessThanPrelim($grade);
+            }
+            break;
+        case 'midterm':
+            if ($condition == 'equal') {
+                $results = $studentController->getStudentsByEqualMidterm($grade);
+            } elseif ($condition == 'greater') {
+                $results = $studentController->getStudentsByEqualOrGreaterThanMidterm($grade);
+            } elseif ($condition == 'less') {
+                $results = $studentController->getStudentsByEqualOrLessThanMidterm($grade);
+            }
+            break;
+        case 'finals':
+            if ($condition == 'equal') {
+                $results = $studentController->getStudentsByEqualFinals($grade);
+            } elseif ($condition == 'greater') {
+                $results = $studentController->getStudentsByEqualOrGreaterThanFinals($grade);
+            } elseif ($condition == 'less') {
+                $results = $studentController->getStudentsByEqualOrLessThanFinals($grade);
+            }
+            break;
+        case 'final-grade':
+            if ($condition == 'equal') {
+                $results = $studentController->getStudentsByEqualFinalGrade($grade);
+            } elseif ($condition == 'greater') {
+                $results = $studentController->getStudentsByEqualOrGreaterThanFinalGrade($grade);
+            } elseif ($condition == 'less') {
+                $results = $studentController->getStudentsByEqualOrLessThanFinalGrade($grade);
+            }
+            break;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +173,10 @@ if(isset($_POST['Delete'])){
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal" style="width: 100%; margin-right: 5px">
                                 Add new student
                             </button>
-                            <input name="ClearSearch" value="Clear search" type="submit" class="btn btn-outline-primary" style="width: 100%; margin-left: 5px">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#sortStudentModal" style="width: 100%;">
+                                Sort students
+                            </button>
+                            <input name="ClearSearch" value="Clear search" type="submit" class="btn btn-outline-danger" style="width: 100%; margin-left: 5px">
                         </div>
                     </form>
 
@@ -178,29 +234,44 @@ if(isset($_POST['Delete'])){
                     </div>
                     <div class="modal-body">
                         <form method="post">
-                            <div class="mb-3">
-                                <label for="input-last-name" class="form-label" id="input-length-label">Last Name</label>
-                                <input id="input-last-name" class="form-control" type="text" name="last-name" required>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="input-first-name" class="form-label" id="input-length-label">First Name</label>
+                                        <input id="input-first-name" class="form-control" type="text" name="first-name" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="input-last-name" class="form-label" id="input-length-label">Last Name</label>
+                                        <input id="input-last-name" class="form-control" type="text" name="last-name" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="input-first-name" class="form-label" id="input-length-label">First Name</label>
-                                <input id="input-first-name" class="form-control" type="text" name="first-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="input-prelim" class="form-label" id="input-length-label">Prelim</label>
-                                <input id="input-prelim" class="form-control" type="text" name="prelim" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="input-midterm" class="form-label" id="input-length-label">Midterms</label>
-                                <input id="input-midterm" class="form-control" type="text" name="midterm" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="input-finals" class="form-label" id="input-length-label">Finals</label>
-                                <input id="input-finals" class="form-control" type="text" name="finals" required>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="input-prelim" class="form-label" id="input-length-label">Prelim</label>
+                                        <input id="input-prelim" class="form-control" type="text" name="prelim" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="input-midterm" class="form-label" id="input-length-label">Midterms</label>
+                                        <input id="input-midterm" class="form-control" type="text" name="midterm" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="input-finals" class="form-label" id="input-length-label">Finals</label>
+                                        <input id="input-finals" class="form-control" type="text" name="finals" required>
+                                    </div>
+                                </div>
                             </div>
                             <div style="text-align: right; margin-top: 10px">
-                                <input name="Submit" value="Submit" type="submit" class="btn btn-primary">
+                                <input name="Submit" value="Add student" type="submit" class="btn btn-primary">
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -217,31 +288,43 @@ if(isset($_POST['Delete'])){
                     </div>
                     <div class="modal-body">
                         <form method="post">
-                            <div class="mb-3">
-                                <input type="hidden" id="student-id" name="student-id">
+                            <input type="hidden" id="student-id" name="student-id">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="first-name" class="form-label" id="input-length-label">First Name</label>
+                                        <input id="first-name" class="form-control" type="text" name="first-name" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="last-name" class="form-label" id="input-length-label">Last Name</label>
+                                        <input id="last-name" class="form-control" type="text" name="last-name" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="last-name" class="form-label" id="input-length-label">Last Name</label>
-                                <input id="last-name" class="form-control" type="text" name="last-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="first-name" class="form-label" id="input-length-label">First Name</label>
-                                <input id="first-name" class="form-control" type="text" name="first-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="prelim" class="form-label" id="input-length-label">Prelim</label>
-                                <input id="prelim" class="form-control" type="text" name="prelim" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="midterm" class="form-label" id="input-length-label">Midterms</label>
-                                <input id="midterm" class="form-control" type="text" name="midterm" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="finals" class="form-label" id="input-length-label">Finals</label>
-                                <input id="finals" class="form-control" type="text" name="finals" required>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="prelim" class="form-label" id="input-length-label">Prelim</label>
+                                        <input id="prelim" class="form-control" type="number" name="prelim" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="midterm" class="form-label" id="input-length-label">Midterms</label>
+                                        <input id="midterm" class="form-control" type="number" name="midterm" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="finals" class="form-label" id="input-length-label">Finals</label>
+                                        <input id="finals" class="form-control" type="number" name="finals" step="0.01" required>
+                                    </div>
+                                </div>
                             </div>
                             <div style="text-align: right; margin-top: 10px">
-                                <input name="Update" value="Update" type="submit" class="btn btn-primary">
+                                <input name="Update" value="Update details" type="submit" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -264,9 +347,81 @@ if(isset($_POST['Delete'])){
                                 <input id="student-id" class="form-control" type="hidden" name="student-id" required>
                             </div>
                             <div style="text-align: right; margin-top: 10px">
-                                <input name="Delete" value="Delete" type="submit" class="btn btn-danger">
+                                <input name="Delete" value="Delete student" type="submit" class="btn btn-danger">
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sort Student Modal -->
+        <div class="modal fade" id="sortStudentModal" tabindex="-1" aria-labelledby="sortStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sortStudentModalLabel">Sort students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <input name="SortFirstName" value="Sort by first name (ascending order)" type="submit" class="btn btn-outline-primary" style="width: 100%; margin-bottom: 5px">
+                            <input name="SortFinalGrade" value="Sort by final grade (descending order)" type="submit" class="btn btn-outline-primary" style="width: 100%; margin-bottom: 5px">
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-target="#customSearch" data-bs-toggle="modal" style="width: 100%; margin-bottom: 5px">Custom search</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sort Student by final grade Modal -->
+        <div class="modal fade" id="customSearch" tabindex="-1" aria-labelledby="customSearchModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="customSearchModalLabel">Search by grade</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" id="gradeForm">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="grade-type" class="form-label">Grade type</label>
+                                        <select class="form-select" id="grade-type" name="grade-type">
+                                            <option value="prelim">Prelim</option>
+                                            <option value="midterm">Midterm</option>
+                                            <option value="finals">Finals</option>
+                                            <option value="final-grade">Final grade</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="condition" class="form-label">Condition</label>
+                                        <select class="form-select" id="condition" name="condition">
+                                            <option value="equal">Equal</option>
+                                            <option value="greater">Greater than or equal to</option>
+                                            <option value="less">Less than or equal to</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="grade" class="form-label">Grade</label>
+                                <input type="number" class="form-control" id="grade" name="grade" step="0.01">
+                            </div>
+                            <div style="margin-top: 10px">
+                                <input name="CustomSearch" value="Search" type="submit" class="btn btn-outline-primary" style="width: 100%">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

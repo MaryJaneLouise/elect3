@@ -41,15 +41,12 @@ $(document).ready(function(){
                 success: function(data) {
                     // Update the table with the search results
                     $("#user-container").html(data);
+
+                    applyRandomColor();
                 }
             });
 
         });
-    });
-
-    $("input[name='ClearSearch']").on("click", function(e) {
-        e.preventDefault();
-        location.reload();
     });
 
     document.addEventListener('keydown', function(event) {
@@ -70,10 +67,18 @@ function generateRandomColor() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded event fired'); // Check if the event listener is being called
     var profileIcons = document.getElementsByClassName('profile-icon');
-    console.log(profileIcons.length + ' elements selected'); // Check how many elements are being selected
+
     for (var i = 0; i < profileIcons.length; i++) {
         profileIcons[i].style.backgroundColor = generateRandomColor();
     }
 });
+
+function applyRandomColor() {
+    var profileIcons = document.getElementsByClassName('profile-icon');
+
+    for (var i = 0; i < profileIcons.length; i++) {
+        // Apply a random color to the background of the current element
+        profileIcons[i].style.backgroundColor = generateRandomColor();
+    }
+}
