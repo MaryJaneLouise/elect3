@@ -83,7 +83,7 @@ class StudentController {
 
     public function getStudentsByEqualOrLessThanPrelim($inputGrade): array {
         $dbCon = new DatabaseConnection(DB_NAME,DB_USERNAME,DB_PASSWORD,DB_HOST,DB_PORT);
-        $studentData = $dbCon->run("SELECT * FROM studentrecord_tbl WHERE Prelim <= ?", [$inputGrade . '%'])->fetchAll();
+        $studentData = $dbCon->run("SELECT * FROM studentrecord_tbl WHERE prelim <= ?", [$inputGrade . '%'])->fetchAll();
         $result = array();
         foreach($studentData as $data){
             $student = new StudentModel(
@@ -101,7 +101,7 @@ class StudentController {
 
     public function getStudentsByEqualPrelim($inputGrade): array {
         $dbCon = new DatabaseConnection(DB_NAME,DB_USERNAME,DB_PASSWORD,DB_HOST,DB_PORT);
-        $studentData = $dbCon->run("SELECT * FROM studentrecord_tbl WHERE final_grade = ?", [$inputGrade . '%'])->fetchAll();
+        $studentData = $dbCon->run("SELECT * FROM studentrecord_tbl WHERE prelim = ?", [$inputGrade . '%'])->fetchAll();
         $result = array();
         foreach($studentData as $data){
             $student = new StudentModel(
