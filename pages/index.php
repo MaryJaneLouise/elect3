@@ -252,26 +252,25 @@ if(isset($_POST['CustomSearch'])){
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="input-prelim" class="form-label" id="input-length-label">Prelim</label>
-                                        <input id="input-prelim" class="form-control" type="text" name="prelim" required>
+                                        <input id="input-prelim" class="form-control" type="number" step="0.01" min="0" max="100" name="prelim" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="input-midterm" class="form-label" id="input-length-label">Midterms</label>
-                                        <input id="input-midterm" class="form-control" type="text" name="midterm" required>
+                                        <input id="input-midterm" class="form-control" type="number" step="0.01" min="0" max="100" name="midterm" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="input-finals" class="form-label" id="input-length-label">Finals</label>
-                                        <input id="input-finals" class="form-control" type="text" name="finals" required>
+                                        <input id="input-finals" class="form-control" type="number" step="0.01" min="0" max="100" name="finals" required>
                                     </div>
                                 </div>
                             </div>
                             <div style="text-align: right; margin-top: 10px">
                                 <input name="Submit" value="Add student" type="submit" class="btn btn-primary">
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -307,19 +306,19 @@ if(isset($_POST['CustomSearch'])){
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="prelim" class="form-label" id="input-length-label">Prelim</label>
-                                        <input id="prelim" class="form-control" type="number" name="prelim" step="0.01" required>
+                                        <input id="prelim" class="form-control" type="number" step="0.01" min="0" max="100" name="prelim" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="midterm" class="form-label" id="input-length-label">Midterms</label>
-                                        <input id="midterm" class="form-control" type="number" name="midterm" step="0.01" required>
+                                        <input id="midterm" class="form-control" type="number" step="0.01" min="0" max="100" name="midterm" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="finals" class="form-label" id="input-length-label">Finals</label>
-                                        <input id="finals" class="form-control" type="number" name="finals" step="0.01" required>
+                                        <input id="finals" class="form-control" type="number" step="0.01" min="0" max="100" name="finals" required>
                                     </div>
                                 </div>
                             </div>
